@@ -2,14 +2,14 @@
  * External dependencies
  */
 import classnames from 'classnames';
-import { first, last, omit } from 'lodash';
+import { omit } from 'lodash';
 import { animated } from 'react-spring/web.cjs';
 
 /**
  * WordPress dependencies
  */
 import { useRef, useEffect, useContext, forwardRef } from '@wordpress/element';
-import { focus, isTextField, placeCaretAtHorizontalEdge } from '@wordpress/dom';
+import { isTextField, placeCaretAtHorizontalEdge } from '@wordpress/dom';
 import { BACKSPACE, DELETE, ENTER } from '@wordpress/keycodes';
 import { __, sprintf } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -103,24 +103,9 @@ const BlockComponent = forwardRef(
 				return;
 			}
 
-			// Find all tabbables within node.
-			const textInputs = focus.tabbable
-				.find( wrapper.current )
-				.filter( isTextField )
-				// Exclude inner blocks and block appenders
-				.filter(
-					( node ) =>
-						isInsideRootBlock( wrapper.current, node ) &&
-						! node.closest( '.block-list-appender' )
-				);
-
-			// If reversed (e.g. merge via backspace), use the last in the set of
-			// tabbables.
 			const isReverse = -1 === initialPosition;
-			const target =
-				( isReverse ? last : first )( textInputs ) || wrapper.current;
 
-			placeCaretAtHorizontalEdge( target, isReverse );
+			placeCaretAtHorizontalEdge( wrapper.current, isReverse );
 		};
 
 		useEffect( () => {
