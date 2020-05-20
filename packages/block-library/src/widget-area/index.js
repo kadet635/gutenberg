@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { layout as icon } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -19,7 +20,9 @@ export const settings = {
 		html: false,
 		inserter: false,
 		customClassName: false,
+		__experimentalToolbar: false,
 	},
 	__experimentalLabel: ( { name: label } ) => label,
 	edit,
+	icon,
 };
